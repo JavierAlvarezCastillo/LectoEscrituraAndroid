@@ -21,8 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.lectoescritura.game.Handlers.InputHandler;
-import com.lectoescritura.game.Const.Const;
 
 public class Muevecamara extends ApplicationAdapter {
 

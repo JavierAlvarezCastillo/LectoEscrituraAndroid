@@ -1,139 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="50" height="25" tilewidth="16" tileheight="16">
- <tileset firstgid="1" name="tiles" tilewidth="16" tileheight="16" spacing="1" margin="1">
-  <image source="tiles.png" width="343" height="410"/>
-  <tile id="10">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="20">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="60">
-   <properties>
-    <property name="animation" value="flower"/>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="80">
-   <properties>
-    <property name="animation" value="flower"/>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="140">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="141">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="143">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="161">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="162">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="163">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="220">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="221">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="222">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="240">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="241">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="242">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="260">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="261">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="262">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="280">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="282">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
+<map version="1.0" orientation="isometric" renderorder="right-down" width="14" height="10" tilewidth="128" tileheight="64" backgroundcolor="#c8ac7d" nextobjectid="1">
+ <tileset firstgid="1" name="tile" tilewidth="128" tileheight="128" tilecount="1" columns="1">
+  <image source="tiles/tile.png" width="128" height="128"/>
  </tileset>
- <layer name="background" width="50" height="25">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3TMQ6AIAyF4TIbRw7mwbyzi4uEoMUirfmHbyGkvLYhiUgCAAAwtgd5f3ZO/MN6eltnKWyVs5YRNRFXNqyjrXV33yqb5ay8ZeqdZZZrP0/6mtl/mXfU3rQz8bTjKO94m6s2+1f/4AAkTJR2iBMAAA==
-  </data>
+ <tileset firstgid="2" name="books" tilewidth="128" tileheight="195" tilecount="1" columns="1">
+  <image source="tiles/books.png" width="128" height="195"/>
+ </tileset>
+ <tileset firstgid="3" name="wall" tilewidth="128" tileheight="315" tilecount="1" columns="1">
+  <image source="tiles/wall.png" width="128" height="315"/>
+  <tile id="0">
+    <properties>
+      <property name="obstacle" value="1"/>
+     </properties>
+   </tile>
+ </tileset>
+ <tileset firstgid="4" name="candlestick" tilewidth="128" tileheight="248" tilecount="1" columns="1">
+  <image source="tiles/candlestick.png" width="128" height="248"/>
+ </tileset>
+ <tileset firstgid="5" name="banner" tilewidth="128" tileheight="274" tilecount="1" columns="1">
+  <image source="tiles/banner.png" width="128" height="274"/>
+ </tileset>
+ <tileset firstgid="6" name="ice" tilewidth="128" tileheight="150" tilecount="1" columns="1">
+  <image source="tiles/ice.png" width="128" height="150"/>
+ </tileset>
+ <layer name="Ground" width="14" height="10">
+  <data encoding="csv">
+2,1,1,4,1,1,2,1,3,1,4,1,1,5,
+1,0,0,0,0,0,1,0,0,0,0,0,0,1,
+1,0,0,0,0,0,1,0,0,0,0,0,0,1,
+1,0,0,0,0,0,1,0,0,0,0,0,0,1,
+3,0,0,0,0,0,1,0,0,0,0,0,0,1,
+1,0,0,0,0,0,1,0,0,0,0,0,0,1,
+1,0,0,0,0,0,1,0,0,0,0,0,0,1,
+1,0,0,0,0,0,1,0,0,0,0,0,0,1,
+1,0,0,0,0,0,1,0,0,0,0,0,0,1,
+1,1,1,4,1,1,2,1,1,1,4,1,1,2
+</data>
  </layer>
- <layer name="foreground" width="50" height="25">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3NQQkAAAgAMcsawvZW8COIbAHuIgAAYCaf/Gqpe+UHANzUCr6l7YgTAAA=
-  </data>
- </layer>
- <objectgroup name="objects" width="50" height="25">
-  <object x="144" y="240" width="80" height="16"/>
-  <object x="192" y="224">
-   <polyline points="0,0 464,0 528,-16 560,-16"/>
-  </object>
-  <object x="448" y="160" width="48" height="48">
-   <ellipse/>
-  </object>
-  <object x="144" y="192">
-   <polygon points="0,0 48,-32 0,-64 0,-48 -96,-48 -96,-16 0,-16"/>
-  </object>
-  <object x="288" y="80" width="80" height="48">
-   <ellipse/>
-  </object>
-  <object gid="271" x="504" y="119"/>
- </objectgroup>
 </map>
