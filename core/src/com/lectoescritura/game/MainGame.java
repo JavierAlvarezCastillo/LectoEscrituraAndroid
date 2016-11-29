@@ -3,12 +3,21 @@ package com.lectoescritura.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.lectoescritura.game.Interfaces.AndroidUtils;
+import com.lectoescritura.game.Screens.MainMenu;
 import com.lectoescritura.game.Screens.Play;
 
 public class MainGame extends Game {
+
+	AndroidUtils androidUtils;
+
+	public MainGame(AndroidUtils androidUtils) {
+		this.androidUtils = androidUtils;
+	}
+
 	@Override
 	public void create() {
-		//setScreen(new Play());
+		setScreen(new MainMenu(androidUtils));
 	}
 
 	@Override

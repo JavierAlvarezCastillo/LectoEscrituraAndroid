@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId "com.lectoescritura.game"
-        minSdkVersion 8
+        minSdkVersion 16
         targetSdkVersion 23
     }
 }
