@@ -33,13 +33,24 @@ public class MainMenu implements Screen {
     private OrthographicCamera camera;
     private TextureAtlas atlas;
     protected Skin skin;
-    private AndroidUtils androidUtils;
 
-    public MainMenu(AndroidUtils androidUtils)
+    private AndroidUtils utils;
+    private String map;
+    private String minigame_id;
+    private int pos_x;
+    private int pos_y;
+
+    public MainMenu(AndroidUtils androidUtils, String map, int pos_x, int pos_y, String minigame_id)
     {
         atlas = new TextureAtlas("atlas.txt");
         skin = new Skin(Gdx.files.internal("skin.json"), atlas);
-        this.androidUtils = androidUtils;
+
+        this.utils = androidUtils;
+        this.map = map;
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+        utils = androidUtils;
+        this.minigame_id = minigame_id;
 
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -76,13 +87,13 @@ public class MainMenu implements Screen {
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(androidUtils, "2.tmx", 0, 0, "2"));
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, map, pos_x, pos_y, minigame_id));
             }
         });
         minijuegosButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen( new Levels(androidUtils));
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Levels(utils, map, pos_x, pos_y, minigame_id));
             }
         });
         exitButton.addListener(new ClickListener(){

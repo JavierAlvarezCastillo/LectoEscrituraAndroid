@@ -197,7 +197,7 @@ public class Play implements Screen {
         textProgressBar.setSize(500, 500);
 
         spriteBatch = new SpriteBatch();
-        player = new Player();
+        player = new Player(pos_x, pos_y);
         cam = new OrthographicCamera();
         cam.setToOrtho(false, Const.VIEWPORT_WIDTH, Const.VIEWPORT_HEIGHT);
 
@@ -373,7 +373,8 @@ public class Play implements Screen {
         Tile tile = new Tile(yt, xt);
         tile.setCell(grid_layer.getCell(tile.x, tile.y));
 
-        if (tile.getCell() != null) {
+
+        if (tile.getCell() != null && player.esContigua(xt, yt)) {
             if (tile.getCell().getTile().getProperties().containsKey("obstacle"))
                 utils.toast("¡No puedes pasar!");
             else {

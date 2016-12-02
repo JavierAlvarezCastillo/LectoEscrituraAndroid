@@ -10,7 +10,9 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.lectoescritura.game.Data.Game;
 import com.lectoescritura.game.Data.Minigame;
+import com.lectoescritura.game.Data.Player;
 import com.lectoescritura.game.Data.Prueba;
 import com.lectoescritura.game.Interfaces.AndroidUtils;
 import com.lectoescritura.game.Interfaces.Conector;
@@ -24,14 +26,16 @@ import java.util.ArrayList;
 public class AndroidLauncher extends AndroidApplication implements AndroidUtils {
 
 	XML_Parser xmlParser;
+    String minigame_id = "1", map = "1.tmx";
+    int pos_x = 0, pos_y = 0;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		readData();
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new MainGame(this));
-		//initialize(new Play(this, "2.tmx", 0, 0, "2"), config);
+        seguirJugando();
+		//AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		initialize(new MainGame(this, map, pos_x, pos_y, minigame_id));
 	}
 
 	@Override
@@ -87,6 +91,26 @@ public class AndroidLauncher extends AndroidApplication implements AndroidUtils 
 	}
 
 	void readData() {
-		xmlParser = new XML_Parser(getBaseContext().getAssets());
+		xmlParser = new XML_Parser(getBaseContext().getAssets(), getApplicationContext());
+	}
+
+    void seguirJugando() {
+		Player player = xmlParser.getPlayer();
+		for (String mingam_id: player.getGameIDs()) {
+			for (Game game: xmlParser.getGames()) {
+				if (mingam_id.equals(game.getId())) {
+					if (game.getEstado().equals("1")) {
+						minigame_id = mingam_id;
+						pos_x = game.getPos_x();
+						pos_y = game.getPos_y();
+					}
+				}
+			}
+		}
+
+        for (Minigame ming: xmlParser.getMinigames()) {
+            if (ming.getId().equals(minigame_id))
+                map = ming.getMap();
+        }
 	}
 }

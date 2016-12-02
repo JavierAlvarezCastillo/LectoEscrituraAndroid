@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
     private Vector2 pos;
     private float velocity;
+    private int pos_x, pos_y;
 
     // NE
     private Texture knight_ne;
@@ -21,7 +22,7 @@ public class Player {
     private int FRAME_COLS = 8;
     private int FRAME_ROWS = 1;
 
-    public Player() {
+    public Player(int pos_x, int pos_y) {
 
         // NE animation
 
@@ -39,7 +40,9 @@ public class Player {
         knight_ne_animation = new Animation(0.025f, knight_ne_frames);
 
         velocity = 5f;
-        pos = new Vector2(0, 0);
+        pos = new Vector2((25.5f * pos_x) + (pos_y * 25.5f), (13f * pos_x) - (pos_y * 13f));
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
     }
 
     public Animation getKnight_ne_animation() {
@@ -55,7 +58,16 @@ public class Player {
     }
 
     public void setPos(int x, int y) {
+        pos_x = x;
+        pos_y = y;
         pos.x = (25.5f * x) + (y * 25.5f);
         pos.y = (13f * x) - (y * 13f);
+    }
+
+    public boolean esContigua(int x, int y) {
+        int abs_x = Math.abs(x - pos_x);
+        int abs_y = Math.abs(y - pos_y);
+
+        return (abs_x == 1 && abs_y == 0) || (abs_y == 1 && abs_x == 0);
     }
 }

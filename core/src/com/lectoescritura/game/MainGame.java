@@ -9,15 +9,23 @@ import com.lectoescritura.game.Screens.Play;
 
 public class MainGame extends Game {
 
-	AndroidUtils androidUtils;
+	AndroidUtils utils;
+	private String map;
+	private String minigame_id;
+	private int pos_x;
+	private int pos_y;
 
-	public MainGame(AndroidUtils androidUtils) {
-		this.androidUtils = androidUtils;
+	public MainGame(AndroidUtils androidUtils, String map, int pos_x, int pos_y, String minigame_id) {
+		this.map = map;
+		this.pos_x = pos_x;
+		this.pos_y = pos_y;
+		utils = androidUtils;
+		this.minigame_id = minigame_id;
 	}
 
 	@Override
 	public void create() {
-		setScreen(new MainMenu(androidUtils));
+		setScreen(new MainMenu(utils, map, pos_x, pos_y, minigame_id));
 	}
 
 	@Override
