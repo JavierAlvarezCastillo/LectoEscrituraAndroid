@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.lectoescritura.game.Interfaces.AndroidUtils;
-import com.lectoescritura.game.Interfaces.Conector;
 import com.lectoescritura.game.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by Javier on 20/11/2016.
@@ -20,9 +20,10 @@ import java.util.ArrayList;
 public class PruebaEducativa extends Activity {
     private String tipo;
     private ArrayList valores;
-    private String correcto;
-    private ArrayList<String> intentos;  // TODO: Guardar el segundo al que lo pulsa
-    private Conector conector;
+    private String correcto, tiempo;
+    private ArrayList<String> intentos;
+    long miliseconds;
+    int cont = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,11 @@ public class PruebaEducativa extends Activity {
             valores = b.getStringArrayList("valores");
             correcto = b.getString("correcto");
             intentos = new ArrayList<>();
-            //conector = (Conector) getIntent().getSerializableExtra("interface");
         }
 
         setContentView(R.layout.prueba_educativa);
         findViewById(R.id.fragmentContainer).setBackgroundColor(Color.BLACK);
+        miliseconds = System.currentTimeMillis();
         elegirTipo(tipo);
     }
 
@@ -50,22 +51,32 @@ public class PruebaEducativa extends Activity {
 
             @Override
             public void onClick(View v) {
-                Button b = (Button) v;
-                intentos.add(b.getText().toString());
 
-                if (b.getText().equals(correcto)) {
-//                    Intent intent = getIntent();
-//                    intent.putExtra("resultado", intentos);
-//                    setResult(RESULT_OK, intent);
-                    //conector.setIntentos(intentos);
-                    // TODO: guardar los intentos
+                Button b = (Button) v;
+
+                if (b.getText().equals(correcto) || cont == 3) {
+                    Intent intent = getIntent();
+                    intent.putStringArrayListExtra("intentos", intentos);
+
+                    tiempo = String.valueOf(System.currentTimeMillis() - miliseconds);
+                    intent.putExtra("tiempo", tiempo);
+                    if (cont == 3)
+                        intent.putExtra("respuesta_correcta", "No");
+                    else
+                        intent.putExtra("respuesta_correcta", "Si");
+                    setResult(RESULT_OK, intent);
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "¡Inténtalo de nuevo!", Toast.LENGTH_SHORT).show();
+                    intentos.add(b.getText().toString());
+                    cont++;
                 }
 
             }
         };
+
+        long seed = System.nanoTime();
+        Collections.shuffle(valores, new Random(seed));
 
         if (tipo.equals("1")) {
             Button two = (Button)findViewById(R.id.two);

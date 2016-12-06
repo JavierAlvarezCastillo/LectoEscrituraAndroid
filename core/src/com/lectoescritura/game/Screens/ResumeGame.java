@@ -1,10 +1,10 @@
 package com.lectoescritura.game.Screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,7 +24,7 @@ import com.lectoescritura.game.Const.Const;
 import com.lectoescritura.game.Entities.Player;
 import com.lectoescritura.game.Interfaces.AndroidUtils;
 
-public class Play implements Screen, InputProcessor{
+public class ResumeGame extends Game implements InputProcessor{
 
     private AndroidUtils utils;
     private String map;
@@ -56,13 +56,15 @@ public class Play implements Screen, InputProcessor{
 
     TiledMapTileLayer grid_layer;
 
+    float camposx, camposy;
+
     private TextureAtlas atlas;
     protected Skin skin;
     Label puntuacion, puntuacion_valor, energia, energia_valor, estrellas, estrellas_valor;
     private SpriteBatch textobatch;
     private int puntos, energ, estrel;
 
-    public Play (AndroidUtils androidUtils, String map, int pos_x, int pos_y, String minigame_id, int puntos, int energia, int estrellas) {
+    public ResumeGame (AndroidUtils androidUtils, String map, int pos_x, int pos_y, String minigame_id, float camposx, float camposy, int puntos, int energia, int estrellas) {
         this.map = map;
         this.pos_x = pos_x;
         this.pos_y = pos_y;
@@ -70,13 +72,15 @@ public class Play implements Screen, InputProcessor{
         this.ultimay = pos_y;
         utils = androidUtils;
         this.minigame_id = minigame_id;
+        this.camposx = camposx;
+        this.camposy = camposy;
         this.puntos = puntos;
         this.energ = energia;
         this.estrel = estrellas;
     }
 
     @Override
-    public void show() {
+    public void create() {
         GL20 gl = Gdx.graphics.getGL20();
         gl.glEnable(GL20.GL_BLEND);
         gl.glEnable(GL20.GL_TEXTURE_2D);
@@ -90,7 +94,9 @@ public class Play implements Screen, InputProcessor{
         currentZoom = cam.zoom;
         Gdx.input.setCatchBackKey(true);
 
-        cam.position.set(player.getPos().x + 120, player.getPos().y + 50 , 0);
+        //
+        if (camposx != 0.0f)
+            cam.position.set(camposx, camposy , 0);
 
         gesture = new GestureDetector(new MyGestureListener());
         myInputMultiplexer = new InputMultiplexer();
@@ -102,6 +108,7 @@ public class Play implements Screen, InputProcessor{
         myInputMultiplexer.addProcessor(gesture);
         myInputMultiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(myInputMultiplexer);
+
         atlas = new TextureAtlas("atlas.txt");
         skin = new Skin(Gdx.files.internal("skin.json"), atlas);
         textobatch = new SpriteBatch();
@@ -111,11 +118,10 @@ public class Play implements Screen, InputProcessor{
         energia_valor = new Label(String.valueOf(energ), skin, "default");
         estrellas = new Label("Estrellas:", skin, "default");
         estrellas_valor = new Label(String.valueOf(estrel), skin, "default");
-
     }
 
     @Override
-    public void render(float delta) {
+    public void render() {
         cam.update();
 
         Gdx.gl.glClearColor(0, 0, 0, 0); // o 0,0,0,1;
@@ -130,7 +136,10 @@ public class Play implements Screen, InputProcessor{
         spriteBatch.begin();
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = player.getKnight_ne_animation().getKeyFrame(stateTime * ANIMATION_RATE, true);
+        //Sprite sprite = (Sprite) player.getKnight_ne_animation().getKeyFrame(stateTime);
+        //spriteBatch.draw(currentFrame, pos.x, pos.y); // +80, +190/ +75, +180
         spriteBatch.draw(currentFrame, pos.x + 5, pos.y + 32, 0, 0, 100, 100, 0.45f, 0.45f, 0);
+        //textProgressBar.draw(spriteBatch, 3f);
         spriteBatch.end();
 
         textobatch.begin();
@@ -159,6 +168,7 @@ public class Play implements Screen, InputProcessor{
 
     }
 
+
     @Override
     public void resize(int width, int height) {
         //the cam will show 10 tiles
@@ -175,11 +185,6 @@ public class Play implements Screen, InputProcessor{
 
     @Override
     public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
 
     }
 
@@ -317,6 +322,7 @@ public class Play implements Screen, InputProcessor{
                 utils.toast("¡No puedes pasar!");
             else if (energ == 0) {
                 utils.pruebaAleatoria(ultimax, ultimay, cam.position.x, cam.position.y, ultimax, ultimay, puntos, energ, estrel);
+                // TODO: poner prueba
             }
             else {
                 energ --;
@@ -336,6 +342,9 @@ public class Play implements Screen, InputProcessor{
             }
 
         }
+
+
+        System.out.println("(" + xt + "," + yt + ")");
     }
 
     public class Tile {

@@ -14,18 +14,22 @@ public class MainGame extends Game {
 	private String minigame_id;
 	private int pos_x;
 	private int pos_y;
+    private int puntos, energia, estrellas;
 
-	public MainGame(AndroidUtils androidUtils, String map, int pos_x, int pos_y, String minigame_id) {
+	public MainGame(AndroidUtils androidUtils, String map, int pos_x, int pos_y, String minigame_id, int puntos, int energia, int estrellas) {
 		this.map = map;
 		this.pos_x = pos_x;
 		this.pos_y = pos_y;
 		utils = androidUtils;
 		this.minigame_id = minigame_id;
+        this.puntos = puntos;
+        this.energia = energia;
+        this.estrellas = estrellas;
 	}
 
 	@Override
 	public void create() {
-		setScreen(new MainMenu(utils, map, pos_x, pos_y, minigame_id));
+		setScreen(new MainMenu(utils, map, pos_x, pos_y, minigame_id, puntos, energia, estrellas));
 	}
 
 	@Override
@@ -36,14 +40,6 @@ public class MainGame extends Game {
 	@Override
 	public void render() {
 		super.render();
-//		if(Gdx.input.isTouched())
-//			try {
-//				setScreen(getScreen().getClass().newInstance());
-//			} catch(InstantiationException e) {
-//				e.printStackTrace();
-//			} catch(IllegalAccessException e) {
-//				e.printStackTrace();
-//			}
 	}
 
 	@Override

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/register"
+    >
+    <TextView android:id="@+id/comotellamas"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Cómo te llamas?"
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/boy"
+        android:src="@drawable/boy"
+        android:background="@android:color/white"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/girl"
+        android:src="@drawable/girl"
+        android:background="@android:color/white"
+        android:layout_marginLeft="72dp"
+        android:layout_marginStart="72dp"
+        android:layout_alignTop="@+id/boy"
+        android:layout_toRightOf="@+id/boy"
+        android:layout_toEndOf="@+id/boy" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/nombre"
+        android:layout_marginTop="27dp"
+        android:layout_marginRight="135dp"
+        android:layout_marginEnd="135dp"
+        android:layout_below="@+id/comotellamas"
+        android:layout_alignRight="@+id/girl"
+        android:layout_alignEnd="@+id/girl" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Eres niño o niña?"
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:layout_below="@+id/nombre"
+        android:layout_alignRight="@+id/comotellamas"
+        android:layout_alignEnd="@+id/comotellamas"
+        android:layout_marginTop="25dp" />
+
+
+</RelativeLayout>

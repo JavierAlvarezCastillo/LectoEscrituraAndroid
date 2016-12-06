@@ -162,11 +162,11 @@
     <sessions>
         <session>
             <session_id>1</session_id>
-            <date>201611271852</date>
+            <session_date>201611271852</session_date>
             <session_mingameId>1</session_mingameId>
             <session_pruebas>
                 <session_prueba>
-                    <minigameValueID>1</minigameValueID>
+                    <prueba_id>1</prueba_id>
                     <respuestaCorrecta>Si</respuestaCorrecta>
                     <valoresIncorrectos>
                         <valor>a</valor>
@@ -176,7 +176,7 @@
                     <tiempoPrimeraRespuesta>12</tiempoPrimeraRespuesta>
                 </session_prueba>
                 <session_prueba>
-                    <minigameValueID>2</minigameValueID>
+                    <prueba_id>2</prueba_id>
                     <respuestaCorrecta>Si</respuestaCorrecta>
                     <valoresIncorrectos>
                         <valor>e</valor>

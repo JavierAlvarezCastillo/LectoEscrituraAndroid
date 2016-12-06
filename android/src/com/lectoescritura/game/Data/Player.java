@@ -7,6 +7,16 @@ import java.util.ArrayList;
  */
 public class Player {
     private String id, name, puntuacion, estrellas, avatar;
+    private int energia;
+
+    public int getEnergia() {
+        return energia;
+    }
+
+    public void setEnergia(int energia) {
+        this.energia = energia;
+    }
+
     private ArrayList<String> gameIDs;
 
     public String getId() {

@@ -1,41 +1,73 @@
 package com.lectoescritura.game;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetManager;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.lectoescritura.game.Data.Game;
+import com.lectoescritura.game.Data.Intento;
 import com.lectoescritura.game.Data.Minigame;
 import com.lectoescritura.game.Data.Player;
 import com.lectoescritura.game.Data.Prueba;
+import com.lectoescritura.game.Data.Session;
 import com.lectoescritura.game.Interfaces.AndroidUtils;
-import com.lectoescritura.game.Interfaces.Conector;
 import com.lectoescritura.game.Pruebas.PruebaEducativa;
+import com.lectoescritura.game.Register.Register;
 import com.lectoescritura.game.Screens.MainMenu;
-import com.lectoescritura.game.Screens.Play;
+import com.lectoescritura.game.Screens.ResumeGame;
 import com.lectoescritura.game.XML_Parser.XML_Parser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AndroidLauncher extends AndroidApplication implements AndroidUtils {
 
 	XML_Parser xmlParser;
-    String minigame_id = "1", map = "1.tmx";
-    int pos_x = 0, pos_y = 0;
+    Session session;
+    ArrayList<Intento> intentos;
+
+    String minigame_id, map;
+    int pos_x, pos_y, ultima_x, ultima_y, energia = 10, puntos, estrellas, prueba_final = 0;
+    float camposx, camposy;
+
+    com.badlogic.gdx.Game maingame;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		readData();
+
+        SharedPreferences prefs = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+        int id = prefs.getInt("id", 0);
+
+        readData();
+
+
+        session = new Session();
+        session.setDate(new SimpleDateFormat("yyyyMMddhhmmss").format(new java.util.Date()));
+        session.setId(String.valueOf(id));
+        session.setMingameId(minigame_id);
+        id++;
+
+        SharedPreferences.Editor editor = getSharedPreferences("SharedPreferences", MODE_PRIVATE).edit();
+        editor.putInt("id", id);
+        editor.apply();
+
+        intentos = new ArrayList<>();
+		if (xmlParser.getPlayer().getName().equals("-")) {
+            Intent intent = new Intent(getContext(), Register.class);
+            startActivityForResult(intent, 1);
+        }
         seguirJugando();
+
 		//AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new MainGame(this, map, pos_x, pos_y, minigame_id));
+        maingame = new MainGame(this, map, pos_x, pos_y, minigame_id, puntos, energia, estrellas);
+		initialize(maingame); //new MainGame(this, map, pos_x, pos_y, minigame_id));
 	}
 
 	@Override
@@ -50,10 +82,19 @@ public class AndroidLauncher extends AndroidApplication implements AndroidUtils 
 	}
 
 	@Override
-	public void pruebaEducativa(String minigame_id, int pos_x, int pos_y) {
+	public void pruebaEducativa(String minigame_id, int pos_x, int pos_y, float camposx, float camposy, int ultimax, int ultimay, int puntos, int energia, int estrellas) {
 		Prueba prueba = null;
 		final String tipo, correcto;
 		final ArrayList<String> valores;
+        this.camposx = camposx;
+        this.camposy = camposy;
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+        this.ultima_x = ultimax;
+        this.ultima_y = ultimay;
+        this.puntos = puntos;
+        this.energia = energia;
+        this.estrellas = estrellas;
 
 		for (Minigame minigame: xmlParser.getMinigames()) {
 			if (minigame.getId().equals(minigame_id)) {
@@ -83,26 +124,191 @@ public class AndroidLauncher extends AndroidApplication implements AndroidUtils 
 				bundle.putString("tipo", tipo);
 				bundle.putStringArrayList("valores", valores);
 				bundle.putString("correcto", correcto);
-                //intent.putExtra("interface", conector);
+
 				intent.putExtras(bundle);
-				startActivity(intent);
+				startActivityForResult(intent, 2);
 			}
 		});
 	}
 
-	void readData() {
+    @Override
+    public void pruebaFinal(String minigame_id, int pos_x, int pos_y, float camposx, float camposy, int ultimax, int ultimay, int puntos, int energia, int estrellas) {
+        Prueba prueba = null;
+        final String tipo, correcto;
+        final ArrayList<String> valores;
+
+        Random r = new Random();
+        int aleatorio_minigame = r.nextInt(xmlParser.getMinigames().size());
+
+        for (int i = 0; i < xmlParser.getMinigames().size();i++) {
+            if (i == aleatorio_minigame) {
+                int aleatorio_prueba = r.nextInt(xmlParser.getMinigames().get(i).getPruebas().size());
+                for (int j = 0; j < xmlParser.getMinigames().get(i).getPruebas().size(); j++) {
+                    if (j == aleatorio_prueba) {
+                        prueba = xmlParser.getMinigames().get(i).getPruebas().get(j);
+                    }
+                }
+            }
+        }
+
+        if (prueba != null) {
+            tipo = prueba.getTipo();
+            correcto = prueba.getCorrecto();
+            valores = prueba.getDistractores();
+        }else {
+            tipo = null;
+            correcto = null;
+            valores = null;
+        }
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getContext(), PruebaEducativa.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tipo", tipo);
+                bundle.putStringArrayList("valores", valores);
+                bundle.putString("correcto", correcto);
+
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 3);
+            }
+        });
+    }
+
+    @Override
+    public void pruebaAleatoria(int pos_x, int pos_y, float camposx, float camposy, int ultimax, int ultimay, int puntos, int energia, int estrellas) {
+        this.camposx = camposx;
+        this.camposy = camposy;
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+        this.ultima_x = ultimax;
+        this.ultima_y = ultimay;
+        this.puntos = puntos;
+        this.energia = energia;
+        this.estrellas = estrellas;
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Prueba prueba = null;
+                                final String tipo, correcto;
+                                final ArrayList<String> valores;
+
+                                Random r = new Random();
+                                int aleatorio_minigame = r.nextInt(xmlParser.getMinigames().size());
+
+                                for (int i = 0; i < xmlParser.getMinigames().size();i++) {
+                                    if (i == aleatorio_minigame) {
+                                        int aleatorio_prueba = r.nextInt(xmlParser.getMinigames().get(i).getPruebas().size());
+                                        for (int j = 0; j < xmlParser.getMinigames().get(i).getPruebas().size(); j++) {
+                                            if (j == aleatorio_prueba) {
+                                                prueba = xmlParser.getMinigames().get(i).getPruebas().get(j);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (prueba != null) {
+                                    tipo = prueba.getTipo();
+                                    correcto = prueba.getCorrecto();
+                                    valores = prueba.getDistractores();
+                                }else {
+                                    tipo = null;
+                                    correcto = null;
+                                    valores = null;
+                                }
+
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(getContext(), PruebaEducativa.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("tipo", tipo);
+                                        bundle.putStringArrayList("valores", valores);
+                                        bundle.putString("correcto", correcto);
+
+                                        intent.putExtras(bundle);
+                                        startActivityForResult(intent, 2);
+                                    }
+                                });
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("No tienes energía. ¿Quieres conseguir más?").setPositiveButton("Sí", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
+    }
+
+    @Override
+    public void salir(int pos_x, int pos_y, float camposx, float camposy, int ultimax, int ultimay, final int puntos, final int energia, final int estrellas) {
+        this.camposx = camposx;
+        this.camposy = camposy;
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+        this.ultima_x = ultimax;
+        this.ultima_y = ultimay;
+        this.puntos = puntos;
+        this.energia = energia;
+        this.estrellas = estrellas;
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                update_all();
+                                Gdx.app.exit();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("¿Deseas salir?").setPositiveButton("Sí", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
+    }
+
+    void readData() {
 		xmlParser = new XML_Parser(getBaseContext().getAssets(), getApplicationContext());
 	}
 
     void seguirJugando() {
 		Player player = xmlParser.getPlayer();
+        boolean encontrado = false;
 		for (String mingam_id: player.getGameIDs()) {
 			for (Game game: xmlParser.getGames()) {
 				if (mingam_id.equals(game.getId())) {
-					if (game.getEstado().equals("1")) {
+					if (game.getEstado().equals("1") && !encontrado) {
 						minigame_id = mingam_id;
 						pos_x = game.getPos_x();
 						pos_y = game.getPos_y();
+                        puntos = Integer.parseInt(game.getMax_score());
+                        estrellas = Integer.parseInt(game.getStars());
+                        energia = player.getEnergia();
+                        encontrado = true;
 					}
 				}
 			}
@@ -113,4 +319,150 @@ public class AndroidLauncher extends AndroidApplication implements AndroidUtils 
                 map = ming.getMap();
         }
 	}
+
+    void update_all() {
+        xmlParser.getPlayer().setEnergia(energia);
+        int total_estrellas = Integer.parseInt(xmlParser.getPlayer().getEstrellas());
+        total_estrellas += estrellas;
+
+        xmlParser.getPlayer().setEstrellas(String.valueOf(total_estrellas));
+
+        int total_puntos = Integer.parseInt(xmlParser.getPlayer().getPuntuacion());
+        total_puntos += puntos;
+        xmlParser.getPlayer().setPuntuacion(String.valueOf(total_puntos));
+
+        xmlParser.update_player();
+
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setPos_x(pos_x);
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setPos_y(pos_y);
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setStars(String.valueOf(estrellas));
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setMax_score(String.valueOf(puntos));
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setEstado("1");
+        xmlParser.update_games();
+
+        session.setIntentos(intentos);
+        xmlParser.setSession(session);
+        xmlParser.print_session();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            //super.onActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 1  && resultCode  == RESULT_OK) {
+                if (data.getStringExtra("avatar").equals("2131099663"))
+                    xmlParser.getPlayer().setAvatar("2");
+                else
+                    xmlParser.getPlayer().setAvatar("1");
+                xmlParser.getPlayer().setName(data.getStringExtra("nombre"));
+                xmlParser.update_player();
+            }else if (requestCode == 2  && resultCode  == RESULT_OK) {
+                Intento intento =  new Intento();
+                intento.setIntentos(data.getStringArrayListExtra("intentos"));
+                intento.setPrueba_id(String.valueOf(intentos.size()));
+                intento.setTiempo_primera_respuesta(data.getStringExtra("tiempo"));
+                intento.setRespuesta_correcta(data.getStringExtra("respuesta_correcta"));
+                if (data.getStringExtra("respuesta_correcta").equals("No")) {
+                    pos_x = ultima_x;
+                    pos_y = ultima_y;
+                    if (puntos-20 < 0)
+                        puntos = 0;
+                    else
+                        puntos-=20;
+                }else {
+                    energia+=3;
+                    puntos+=50;
+                }
+
+                intentos.add(intento);
+
+                initialize(new ResumeGame(this, map, pos_x, pos_y, minigame_id, camposx, camposy, puntos, energia, estrellas));
+            }
+            else if (requestCode == 3  && resultCode  == RESULT_OK) {
+                Intento intento =  new Intento();
+                intento.setIntentos(data.getStringArrayListExtra("intentos"));
+                intento.setPrueba_id(String.valueOf(intentos.size()));
+                intento.setTiempo_primera_respuesta(data.getStringExtra("tiempo"));
+                intento.setRespuesta_correcta(data.getStringExtra("respuesta_correcta"));
+                intentos.add(intento);
+                if (data.getStringExtra("respuesta_correcta").equals("No")) {
+                    pos_x = ultima_x;
+                    pos_y = ultima_y;
+                    if (puntos-20 < 0)
+                        puntos = 0;
+                    else
+                        puntos-=20;
+                    prueba_final = 0;
+                    initialize(new ResumeGame(this, map, pos_x, pos_y, minigame_id, camposx, camposy, puntos, energia, estrellas));
+                }else {
+                    energia+=3;
+                    puntos+=50;
+                    if (prueba_final != 3) {
+                        prueba_final++;
+                        pruebaFinal(minigame_id, pos_x, pos_y, camposx, camposy, ultima_x, ultima_y, puntos, energia, estrellas);
+                    }
+                    else {
+                        toast("¡Has superado este nivel!");
+
+                        intentos = new ArrayList<>();
+                        boolean encontrado = false;
+                        prueba_final = 0;
+                        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setEstado("2");
+
+                        for (String mingam_id: xmlParser.getPlayer().getGameIDs()) {
+                            for (Game game: xmlParser.getGames()) {
+                                if (mingam_id.equals(game.getId())) {
+                                    if (game.getEstado().equals("1") && !encontrado) {
+                                        minigame_id = mingam_id;
+                                        pos_x = game.getPos_x();
+                                        pos_y = game.getPos_y();
+                                        puntos = Integer.parseInt(game.getMax_score());
+                                        estrellas = Integer.parseInt(game.getStars());
+                                        energia = xmlParser.getPlayer().getEnergia();
+                                        encontrado = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        for (Minigame ming: xmlParser.getMinigames()) {
+                            if (ming.getId().equals(minigame_id))
+                                map = ming.getMap();
+                        }
+
+                        SharedPreferences prefs = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+                        int id = prefs.getInt("id", 0);
+
+                        session = new Session();
+                        session.setDate(new SimpleDateFormat("yyyyMMddhhmmss").format(new java.util.Date()));
+                        session.setId(String.valueOf(id));
+                        session.setMingameId(minigame_id);
+                        id++;
+
+                        SharedPreferences.Editor editor = getSharedPreferences("SharedPreferences", MODE_PRIVATE).edit();
+                        editor.putInt("id", id);
+                        editor.apply();
+
+                        //AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+
+                        if (encontrado)
+                            initialize(new ResumeGame(this, map, pos_x, pos_y, minigame_id, 0.0f, 0.0f, puntos, energia, estrellas));
+                        else {
+                            toast("Has superado el juego!");
+                            initialize(new MainGame(this, map, pos_x, pos_y, minigame_id, puntos, energia, estrellas));
+                        }
+                    }
+                }
+
+
+
+
+            }
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 }

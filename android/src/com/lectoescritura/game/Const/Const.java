@@ -42,6 +42,7 @@ public class Const {
     public static final String PLAYER_PUNTUACION = "player_puntuacion";
     public static final String PLAYER_ESTRELLAS = "player_estrellas";
     public static final String PLAYER_AVATAR = "player_avatar";
+    public static final String PLAYER_ENERGIA = "player_energia";
 
 
 }

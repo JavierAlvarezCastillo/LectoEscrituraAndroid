@@ -37,8 +37,9 @@ public class Levels implements Screen {
     private String minigame_id;
     private int pos_x;
     private int pos_y;
+    private int puntos, energia, estrellas;
 
-    public Levels(AndroidUtils androidUtils, String map, int pos_x, int pos_y, String minigame_id)
+    public Levels(AndroidUtils androidUtils, String map, int pos_x, int pos_y, String minigame_id, int puntos, int energia, int estrellas)
     {
         atlas = new TextureAtlas("atlas.txt");
         skin = new Skin(Gdx.files.internal("skin.json"), atlas);
@@ -47,12 +48,15 @@ public class Levels implements Screen {
         this.map = map;
         this.pos_x = pos_x;
         this.pos_y = pos_y;
+        this.puntos = puntos;
+        this.energia = energia;
+        this.estrellas = estrellas;
         utils = androidUtils;
         this.minigame_id = minigame_id;
 
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
-        viewport = new FitViewport(Const.V_WIDTH, Const.V_HEIGHT, camera);
+        viewport = new FitViewport(800, 480, camera);
         viewport.apply();
 
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
@@ -88,13 +92,13 @@ public class Levels implements Screen {
         a.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, map, 0, 0, minigame_id));
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, map, 0, 0, minigame_id, puntos, energia, estrellas));
             }
         });
         volver.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen( new MainMenu(utils, map, pos_x, pos_y, minigame_id));
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new MainMenu(utils, map, pos_x, pos_y, minigame_id, puntos, energia, estrellas));
             }
         });
 

@@ -11,9 +11,11 @@ import android.util.Xml;
 
 import com.lectoescritura.game.Const.Const;
 import com.lectoescritura.game.Data.Game;
+import com.lectoescritura.game.Data.Intento;
 import com.lectoescritura.game.Data.Minigame;
 import com.lectoescritura.game.Data.Player;
 import com.lectoescritura.game.Data.Prueba;
+import com.lectoescritura.game.Data.Session;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -52,6 +54,8 @@ public class XML_Parser {
     private ArrayList<Minigame> minigames;
     private ArrayList<Game> games;
     private Player player;
+    private Session session;
+
     private Context context;
     private AssetManager assetManager;
 
@@ -61,17 +65,10 @@ public class XML_Parser {
 
         parse_minigames();
 
-        if (createDirIfNotExists("Lecto")) {
-            copyXML("Player.xml");
-            copyXML("Games.xml");
-        }
+        createDirIfNotExists("Lecto");
         parse_games();
         parse_player();
-//        player.setAvatar("1");
-//        player.setName("Javilon");
-//        update_player(p);
-//        games.get(0).setPos_x(5);
-//        update_games(games);
+
     }
 
     public void update_player() {
@@ -99,6 +96,9 @@ public class XML_Parser {
 
             nodeslist = doc.getElementsByTagName("player_avatar");
             nodeslist.item(0).getFirstChild().setNodeValue(player.getAvatar());
+
+            nodeslist = doc.getElementsByTagName("player_energia");
+            nodeslist.item(0).getFirstChild().setNodeValue(String.valueOf(player.getEnergia()));
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = null;
@@ -190,27 +190,64 @@ public class XML_Parser {
         }
     }
 
-    public void write_XML() {
-        final String xmlFile = "userData";
-        String userNAme = "username";
-        String password = "password";
+    public void print_session() {
         try {
             createDirIfNotExists("Lecto/Logs");
 
-            FileOutputStream fileos = new FileOutputStream (new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Logs/" + "userData.xml"));
+            FileOutputStream fileos = new FileOutputStream (new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Lecto/Logs/" +  session.getDate() + ".xml"));
 
             XmlSerializer xmlSerializer = Xml.newSerializer();
             StringWriter writer = new StringWriter();
             xmlSerializer.setOutput(writer);
             xmlSerializer.startDocument("UTF-8", true);
-            xmlSerializer.startTag(null, "userData");
-            xmlSerializer.startTag(null, "userName");
-            xmlSerializer.text("Hola");
-            xmlSerializer.endTag(null, "userName");
-            xmlSerializer.startTag(null,"password");
-            xmlSerializer.text("Adios");
-            xmlSerializer.endTag(null, "password");
-            xmlSerializer.endTag(null, "userData");
+
+            xmlSerializer.startTag(null, "session");
+
+            xmlSerializer.startTag(null, "session_id");
+            xmlSerializer.text(session.getId());
+            xmlSerializer.endTag(null, "session_id");
+
+            xmlSerializer.startTag(null, "session_date");
+            xmlSerializer.text(session.getDate());
+            xmlSerializer.endTag(null, "session_date");
+
+            xmlSerializer.startTag(null, "session_mingameId");
+            xmlSerializer.text(session.getMingameId());
+            xmlSerializer.endTag(null, "session_mingameId");
+
+            xmlSerializer.startTag(null, "session_pruebas");
+
+            for (Intento intento: session.getIntentos()) {
+
+
+                xmlSerializer.startTag(null, "session_prueba");
+                xmlSerializer.startTag(null, "prueba_id");
+                xmlSerializer.text(intento.getPrueba_id());
+                xmlSerializer.endTag(null, "prueba_id");
+                xmlSerializer.startTag(null, "respuestaCorrecta");
+                xmlSerializer.text(intento.getRespuesta_correcta());
+                xmlSerializer.endTag(null, "respuestaCorrecta");
+                xmlSerializer.startTag(null, "valoresIncorrectos");
+
+                for (String fallo: intento.getIntentos()) {
+                    xmlSerializer.startTag(null, "valor");
+                    xmlSerializer.text(fallo);
+                    xmlSerializer.endTag(null, "valor");
+                }
+
+                xmlSerializer.endTag(null, "valoresIncorrectos");
+                xmlSerializer.startTag(null, "tiempoPrimeraRespuesta");
+                xmlSerializer.text(intento.getTiempo_primera_respuesta());
+                xmlSerializer.endTag(null, "tiempoPrimeraRespuesta");
+
+                xmlSerializer.endTag(null, "session_prueba");
+
+            }
+
+            xmlSerializer.endTag(null, "session_pruebas");
+            xmlSerializer.endTag(null, "session");
+
+
             xmlSerializer.endDocument();
             xmlSerializer.flush();
             String dataWrite = writer.toString();
@@ -223,11 +260,15 @@ public class XML_Parser {
         }
     }
 
-    public static boolean createDirIfNotExists(String path) {
+    public boolean createDirIfNotExists(String path) {
         boolean ret = true;
 
         File file = new File(Environment.getExternalStorageDirectory(), path);
         if (!file.exists()) {
+            if (path.equals("Lecto")) {
+                copyXML("Player.xml");
+                copyXML("Games.xml");
+            }
             if (!file.mkdirs()) {
                 ret = false;
             }
@@ -634,6 +675,8 @@ public class XML_Parser {
                         break;
                     case Const.PLAYER_AVATAR: etiqueta = Const.PLAYER_AVATAR;
                         break;
+                    case Const.PLAYER_ENERGIA: etiqueta = Const.PLAYER_ENERGIA;
+                        break;
                 }
             }
 
@@ -659,6 +702,8 @@ public class XML_Parser {
                         case Const.PLAYER_ESTRELLAS: player.setEstrellas(xpp.getText());
                             break;
                         case Const.PLAYER_AVATAR: player.setAvatar(xpp.getText());
+                            break;
+                        case Const.PLAYER_ENERGIA: player.setEnergia(Integer.parseInt(xpp.getText()));
                             break;
                     }
                     etiqueta = null;
@@ -690,7 +735,39 @@ public class XML_Parser {
         return player;
     }
 
-    public class Nodo {
+    public void setMinigames(ArrayList<Minigame> minigames) {
+        this.minigames = minigames;
+    }
 
+    public void setGames(ArrayList<Game> games) {
+        this.games = games;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
+    }
+
+    public void setAssetManager(AssetManager assetManager) {
+        this.assetManager = assetManager;
     }
 }

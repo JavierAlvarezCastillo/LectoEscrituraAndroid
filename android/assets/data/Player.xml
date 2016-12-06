@@ -10,5 +10,6 @@
         <player_puntuacion>0</player_puntuacion>
         <player_estrellas>0</player_estrellas>
         <player_avatar>-</player_avatar>
+        <player_energia>10</player_energia>
     </player>
 </resources>
