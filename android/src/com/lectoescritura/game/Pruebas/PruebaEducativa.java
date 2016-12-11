@@ -145,7 +145,6 @@ public class PruebaEducativa extends Activity {
         }
 
         Button five = (Button)findViewById(R.id.five);
-        five.setEnabled(false);
         five.setText(correcto);
     }
 }

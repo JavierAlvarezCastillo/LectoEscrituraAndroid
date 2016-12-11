@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/fragmentContainer"
+    >
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="a"
+        android:id="@+id/correcto"
+        android:textSize="30sp"
+        android:background="@android:color/holo_orange_light"
+        android:textColor="@android:color/background_dark"
+        android:layout_above="@+id/resolver"
+        android:layout_toLeftOf="@+id/numberPicker"
+        android:layout_toStartOf="@+id/numberPicker" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resolver"
+        android:id="@+id/resolver"
+        android:layout_alignTop="@+id/salir"
+        android:layout_toLeftOf="@+id/salir"
+        android:layout_toStartOf="@+id/salir" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salir"
+        android:id="@+id/salir"
+        android:layout_marginRight="80dp"
+
+        android:layout_marginEnd="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="200dp" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker4"
+        android:layout_alignBottom="@+id/resolver"
+        android:layout_toLeftOf="@+id/resolver"
+        android:layout_toStartOf="@+id/resolver">
+
+    </NumberPicker>
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker2"
+        android:layout_alignTop="@+id/numberPicker3"
+        android:layout_toLeftOf="@+id/numberPicker3"
+        android:layout_toStartOf="@+id/numberPicker3" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker"
+        android:layout_alignBottom="@+id/resolver"
+        android:layout_toLeftOf="@+id/numberPicker2"
+        android:layout_toStartOf="@+id/numberPicker2" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker3"
+        android:layout_alignTop="@+id/numberPicker4"
+        android:layout_toLeftOf="@+id/numberPicker4"
+        android:layout_toStartOf="@+id/numberPicker4" />
+
+</RelativeLayout>

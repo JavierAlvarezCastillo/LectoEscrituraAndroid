@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Player {
     private String id, name, puntuacion, estrellas, avatar;
     private int energia;
+    private ArrayList<String> gameIDs;
 
     public int getEnergia() {
         return energia;
@@ -17,7 +18,7 @@ public class Player {
         this.energia = energia;
     }
 
-    private ArrayList<String> gameIDs;
+
 
     public String getId() {
         return id;

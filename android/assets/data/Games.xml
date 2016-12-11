@@ -23,5 +23,38 @@
             </game_actual_position>
             <game_estado>1</game_estado>
         </game>
+        <game>
+            <game_id>3</game_id>
+            <game_minigameID>3</game_minigameID>
+            <game_max_score>0</game_max_score>
+            <game_stars>0</game_stars>
+            <game_actual_position>
+                <game_actual_position_x>0</game_actual_position_x>
+                <game_actual_position_y>0</game_actual_position_y>
+            </game_actual_position>
+            <game_estado>1</game_estado>
+        </game>
+        <game>
+            <game_id>4</game_id>
+            <game_minigameID>4</game_minigameID>
+            <game_max_score>0</game_max_score>
+            <game_stars>0</game_stars>
+            <game_actual_position>
+                <game_actual_position_x>0</game_actual_position_x>
+                <game_actual_position_y>0</game_actual_position_y>
+            </game_actual_position>
+            <game_estado>1</game_estado>
+        </game>
+        <game>
+            <game_id>5</game_id>
+            <game_minigameID>5</game_minigameID>
+            <game_max_score>0</game_max_score>
+            <game_stars>0</game_stars>
+            <game_actual_position>
+                <game_actual_position_x>0</game_actual_position_x>
+                <game_actual_position_y>0</game_actual_position_y>
+            </game_actual_position>
+            <game_estado>1</game_estado>
+        </game>
     </games>
 </resources>

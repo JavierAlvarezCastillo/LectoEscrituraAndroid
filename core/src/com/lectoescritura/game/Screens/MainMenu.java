@@ -84,8 +84,11 @@ public class MainMenu implements Screen {
 
         //Create buttons
         TextButton playButton = new TextButton("Inicio", skin, "button_up");
+        playButton.getLabel().setFontScale(2.0f);
         TextButton minijuegosButton = new TextButton("Minijuegos", skin, "button_up");
+        minijuegosButton.getLabel().setFontScale(2.0f);
         TextButton exitButton = new TextButton("Salir", skin, "button_up");
+        exitButton.getLabel().setFontScale(2.0f);
 
         //Add listeners to buttons
         playButton.addListener(new ClickListener(){
@@ -108,11 +111,11 @@ public class MainMenu implements Screen {
         });
 
         //Add buttons to table
-        mainTable.add(playButton);
+        mainTable.add(playButton).width(playButton.getWidth() * 1.15f).height(playButton.getHeight() * 1.5f);
         mainTable.row();
-        mainTable.add(minijuegosButton);
+        mainTable.add(minijuegosButton).width(minijuegosButton.getWidth() * 1.15f).height(minijuegosButton.getHeight() * 1.5f);
         mainTable.row();
-        mainTable.add(exitButton);
+        mainTable.add(exitButton).width(exitButton.getWidth() * 1.15f).height(exitButton.getHeight() * 1.5f);
 
         //Add table to stage
         stage.addActor(mainTable);

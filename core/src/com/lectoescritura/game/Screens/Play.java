@@ -123,7 +123,7 @@ public class Play implements Screen, InputProcessor{
 
         Vector2 pos = player.getPos();
 
-        tiledMapRenderer.setView(cam);
+            tiledMapRenderer.setView(cam);
         tiledMapRenderer.render();
 
         spriteBatch.setProjectionMatrix(cam.combined);
@@ -148,13 +148,13 @@ public class Play implements Screen, InputProcessor{
         energia_valor.setFontScale(5);
         energia_valor.setText(String.valueOf(energ));
         energia_valor.draw(textobatch, 3.f);
-        estrellas.setPosition(50.0f, 800.0f);
-        estrellas.setFontScale(5);
-        estrellas.draw(textobatch, 3.f);
-        estrellas_valor.setPosition(390.0f, 800.0f);
-        estrellas_valor.setFontScale(5);
-        estrellas_valor.setText(String.valueOf(estrel));
-        estrellas_valor.draw(textobatch, 3.f);
+//        estrellas.setPosition(50.0f, 800.0f);
+//        estrellas.setFontScale(5);
+//        estrellas.draw(textobatch, 3.f);
+//        estrellas_valor.setPosition(390.0f, 800.0f);
+//        estrellas_valor.setFontScale(5);
+//        estrellas_valor.setText(String.valueOf(estrel));
+//        estrellas_valor.draw(textobatch, 3.f);
         textobatch.end();
 
     }
@@ -316,20 +316,20 @@ public class Play implements Screen, InputProcessor{
             if (tile.getCell().getTile().getProperties().containsKey("obstacle"))
                 utils.toast("¡No puedes pasar!");
             else if (energ == 0) {
-                utils.pruebaAleatoria(ultimax, ultimay, cam.position.x, cam.position.y, ultimax, ultimay, puntos, energ, estrel);
+                utils.pruebaAleatoria(minigame_id, map, ultimax, ultimay, cam.position.x, cam.position.y, ultimax, ultimay, puntos, energ, estrel);
             }
             else {
                 energ --;
                 puntos++;
                 if (tile.getCell().getTile().getId() == 2) { // libros
-                    utils.pruebaEducativa(minigame_id, xt, yt, cam.position.x, cam.position.y, ultimax, ultimay, puntos, energ, estrel);
+                    utils.pruebaEducativa(minigame_id, map, xt, yt, cam.position.x, cam.position.y, ultimax, ultimay, puntos, energ, estrel);
                 }
                 else if (tile.getCell().getTile().getId() == 4) {  // lampara
                     utils.toast("¡Energía +1!");
                     energ++;
                 }
                 else if (tile.getCell().getTile().getId() == 5)   // final
-                    utils.pruebaFinal(minigame_id, xt, yt, cam.position.x, cam.position.y, ultimax, ultimay, puntos, energ, estrel);
+                    utils.pruebaFinal(minigame_id, map, xt, yt, cam.position.x, cam.position.y, ultimax, ultimay, puntos, energ, estrel);
                 player.setPos(xt, yt);
                 ultimax = xt;
                 ultimay = yt;

@@ -76,25 +76,60 @@ public class Levels implements Screen {
         //Set table to fill stage
         mainTable.setFillParent(true);
         //Set alignment of contents in the table.
-        mainTable.right();
+        mainTable.center(); //right
         Drawable background =  new Image(new Texture((Gdx.files.internal("fondo_niveles.png")))).getDrawable();
         mainTable.setBackground(background);
 
         //Create buttons
         TextButton a = new TextButton("1", skin, "button_up");
+        a.getLabel().setFontScale(2.0f);
         TextButton b = new TextButton("2", skin, "button_up");
+        b.getLabel().setFontScale(2.0f);
         TextButton c = new TextButton("3", skin, "button_up");
+        c.getLabel().setFontScale(2.0f);
         TextButton d = new TextButton("4", skin, "button_up");
+        d.getLabel().setFontScale(2.0f);
         TextButton e = new TextButton("5", skin, "button_up");
+        e.getLabel().setFontScale(2.0f);
         TextButton volver = new TextButton("Volver", skin, "button_up");
+        volver.getLabel().setFontScale(2.0f);
 
         //Add listeners to buttons
         a.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, map, 0, 0, minigame_id, puntos, energia, estrellas));
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, "1.tmx", 0, 0, "1", 0, 10, 0));
             }
         });
+
+        b.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, "2.tmx", 0, 0, "2", 0, 10, 0));
+            }
+        });
+
+        c.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, "3.tmx", 0, 0, "3", 0, 10, 0));
+            }
+        });
+
+        d.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, "4.tmx", 0, 0, "4", 0, 10, 0));
+            }
+        });
+
+        e.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, "5.tmx", 0, 0, "5", 0, 10, 0));
+            }
+        });
+
         volver.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -103,19 +138,21 @@ public class Levels implements Screen {
         });
 
         //Add buttons to table
-        mainTable.add(a);
-        mainTable.add(b);
+        mainTable.add(a).width(a.getWidth() * 1.15f).height(a.getHeight() * 1.5f);
+        mainTable.add(b).width(b.getWidth() * 1.15f).height(b.getHeight() * 1.5f);
         mainTable.row();
-        mainTable.add(c);
-        mainTable.add(d);
+        mainTable.add(c).width(c.getWidth() * 1.15f).height(c.getHeight() * 1.5f);
+        mainTable.add(d).width(d.getWidth() * 1.15f).height(d.getHeight() * 1.5f);
         mainTable.row();
-        mainTable.add(e);
+        mainTable.add(e).width(e.getWidth() * 1.15f).height(e.getHeight() * 1.5f);
 
-        mainTable.padRight(20.f);
+        //mainTable.padRight(20.f);
 
         //Add table to stage
         stage.addActor(mainTable);
-        volver.setPosition(390.0f, 70.0f);
+        volver.setPosition(240.0f, 0.0f);
+        volver.setWidth(volver.getWidth() * 1.15f);
+        volver.setHeight(volver.getHeight() * 1.5f);
         stage.addActor(volver);
     }
 
