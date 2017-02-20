@@ -1,7 +1,6 @@
 package com.lectoescritura.game.Interfaces;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by Javier on 20/11/2016.

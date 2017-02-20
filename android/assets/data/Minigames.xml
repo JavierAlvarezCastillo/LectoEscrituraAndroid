@@ -1,87 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <minigames>
-       <minigame>
-           <minigame_id>1</minigame_id>
-           <minigame_type>1</minigame_type>
-           <minigame_map>1.tmx</minigame_map>
-           <minigame_level>1</minigame_level>
-           <pruebas>
-               <prueba>
-                   <prueba_id>1</prueba_id>
-                   <prueba_correcto>e</prueba_correcto>
-                   <prueba_distractores>
-                       <prueba_distractor>a</prueba_distractor>
-                       <prueba_distractor>i</prueba_distractor>
-                       <prueba_distractor>e</prueba_distractor>
-                       <prueba_distractor>o</prueba_distractor>
-                   </prueba_distractores>
-                   <prueba_tipo>1</prueba_tipo>
-                   <prueba_posicion_x>0</prueba_posicion_x>
-                   <prueba_posicion_y>6</prueba_posicion_y>
-               </prueba>
-               <prueba>
-                   <prueba_id>2</prueba_id>
-                   <prueba_correcto>a</prueba_correcto>
-                   <prueba_distractores>
-                       <prueba_distractor>e</prueba_distractor>
-                       <prueba_distractor>i</prueba_distractor>
-                       <prueba_distractor>o</prueba_distractor>
-                       <prueba_distractor>a</prueba_distractor>
-                   </prueba_distractores>
-                   <prueba_tipo>2</prueba_tipo>
-                   <prueba_posicion_x>0</prueba_posicion_x>
-                   <prueba_posicion_y>13</prueba_posicion_y>
-               </prueba>
-               <prueba>
-                   <prueba_id>3</prueba_id>
-                   <prueba_correcto>i</prueba_correcto>
-                   <prueba_distractores>
-                       <prueba_distractor>i</prueba_distractor>
-                       <prueba_distractor>a</prueba_distractor>
-                       <prueba_distractor>o</prueba_distractor>
-                       <prueba_distractor>e</prueba_distractor>
-                   </prueba_distractores>
-                   <prueba_tipo>2</prueba_tipo>
-                   <prueba_posicion_x>9</prueba_posicion_x>
-                   <prueba_posicion_y>0</prueba_posicion_y>
-               </prueba>
-               <prueba>
-                   <prueba_id>4</prueba_id>
-                   <prueba_correcto>u</prueba_correcto>
-                   <prueba_distractores>
-                       <prueba_distractor>o</prueba_distractor>
-                       <prueba_distractor>u</prueba_distractor>
-                       <prueba_distractor>i</prueba_distractor>
-                       <prueba_distractor>a</prueba_distractor>
-                   </prueba_distractores>
-                   <prueba_tipo>1</prueba_tipo>
-                   <prueba_posicion_x>9</prueba_posicion_x>
-                   <prueba_posicion_y>6</prueba_posicion_y>
-               </prueba>
-               <prueba>
-                   <prueba_id>5</prueba_id>
-                   <prueba_correcto>a</prueba_correcto>
-                   <prueba_distractores>
-                       <prueba_distractor>a</prueba_distractor>
-                       <prueba_distractor>u</prueba_distractor>
-                       <prueba_distractor>i</prueba_distractor>
-                       <prueba_distractor>e</prueba_distractor>
-                       <prueba_distractor>a</prueba_distractor>
-                       <prueba_distractor>u</prueba_distractor>
-                       <prueba_distractor>e</prueba_distractor>
-                       <prueba_distractor>o</prueba_distractor>
-                       <prueba_distractor>a</prueba_distractor>
-                       <prueba_distractor>a</prueba_distractor>
-                       <prueba_distractor>e</prueba_distractor>
-                       <prueba_distractor>i</prueba_distractor>
-                   </prueba_distractores>
-                   <prueba_tipo>3</prueba_tipo>
-                   <prueba_posicion_x>9</prueba_posicion_x>
-                   <prueba_posicion_y>13</prueba_posicion_y>
-               </prueba>
-           </pruebas>
-       </minigame>
+        <minigame>
+            <minigame_id>1</minigame_id>
+            <minigame_type>1</minigame_type>
+            <minigame_map>1.tmx</minigame_map>
+            <minigame_level>1</minigame_level>
+            <pruebas>
+                <prueba>
+                    <prueba_id>1</prueba_id>
+                    <prueba_correcto>e</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>o</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>1</prueba_tipo>
+                    <prueba_posicion_x>4</prueba_posicion_x>
+                    <prueba_posicion_y>0</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>2</prueba_id>
+                    <prueba_correcto>a</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>2</prueba_tipo>
+                    <prueba_posicion_x>2</prueba_posicion_x>
+                    <prueba_posicion_y>2</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>3</prueba_id>
+                    <prueba_correcto>i</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>2</prueba_tipo>
+                    <prueba_posicion_x>0</prueba_posicion_x>
+                    <prueba_posicion_y>4</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>4</prueba_id>
+                    <prueba_correcto>u</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>1</prueba_tipo>
+                    <prueba_posicion_x>5</prueba_posicion_x>
+                    <prueba_posicion_y>5</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>5</prueba_id>
+                    <prueba_correcto>a</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>1</prueba_tipo>
+                    <prueba_posicion_x>0</prueba_posicion_x>
+                    <prueba_posicion_y>8</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>6</prueba_id>
+                    <prueba_correcto>u</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>3</prueba_tipo>
+                    <prueba_posicion_x>1</prueba_posicion_x>
+                    <prueba_posicion_y>10</prueba_posicion_y>
+                </prueba>
+            </pruebas>
+        </minigame>
         <minigame>
             <minigame_id>2</minigame_id>
             <minigame_type>1</minigame_type>
@@ -179,8 +192,8 @@
                         <prueba_distractor>o</prueba_distractor>
                     </prueba_distractores>
                     <prueba_tipo>1</prueba_tipo>
-                    <prueba_posicion_x>4</prueba_posicion_x>
-                    <prueba_posicion_y>0</prueba_posicion_y>
+                    <prueba_posicion_x>0</prueba_posicion_x>
+                    <prueba_posicion_y>6</prueba_posicion_y>
                 </prueba>
                 <prueba>
                     <prueba_id>2</prueba_id>
@@ -192,8 +205,8 @@
                         <prueba_distractor>a</prueba_distractor>
                     </prueba_distractores>
                     <prueba_tipo>2</prueba_tipo>
-                    <prueba_posicion_x>2</prueba_posicion_x>
-                    <prueba_posicion_y>2</prueba_posicion_y>
+                    <prueba_posicion_x>0</prueba_posicion_x>
+                    <prueba_posicion_y>13</prueba_posicion_y>
                 </prueba>
                 <prueba>
                     <prueba_id>3</prueba_id>
@@ -205,8 +218,8 @@
                         <prueba_distractor>e</prueba_distractor>
                     </prueba_distractores>
                     <prueba_tipo>2</prueba_tipo>
-                    <prueba_posicion_x>0</prueba_posicion_x>
-                    <prueba_posicion_y>4</prueba_posicion_y>
+                    <prueba_posicion_x>9</prueba_posicion_x>
+                    <prueba_posicion_y>0</prueba_posicion_y>
                 </prueba>
                 <prueba>
                     <prueba_id>4</prueba_id>
@@ -218,42 +231,29 @@
                         <prueba_distractor>a</prueba_distractor>
                     </prueba_distractores>
                     <prueba_tipo>1</prueba_tipo>
-                    <prueba_posicion_x>5</prueba_posicion_x>
-                    <prueba_posicion_y>5</prueba_posicion_y>
+                    <prueba_posicion_x>9</prueba_posicion_x>
+                    <prueba_posicion_y>6</prueba_posicion_y>
                 </prueba>
                 <prueba>
                     <prueba_id>5</prueba_id>
                     <prueba_correcto>a</prueba_correcto>
                     <prueba_distractores>
-                        <prueba_distractor>o</prueba_distractor>
-                        <prueba_distractor>e</prueba_distractor>
-                        <prueba_distractor>i</prueba_distractor>
-                        <prueba_distractor>a</prueba_distractor>
-                    </prueba_distractores>
-                    <prueba_tipo>1</prueba_tipo>
-                    <prueba_posicion_x>0</prueba_posicion_x>
-                    <prueba_posicion_y>8</prueba_posicion_y>
-                </prueba>
-                <prueba>
-                    <prueba_id>6</prueba_id>
-                    <prueba_correcto>u</prueba_correcto>
-                    <prueba_distractores>
                         <prueba_distractor>a</prueba_distractor>
                         <prueba_distractor>u</prueba_distractor>
                         <prueba_distractor>i</prueba_distractor>
                         <prueba_distractor>e</prueba_distractor>
                         <prueba_distractor>a</prueba_distractor>
                         <prueba_distractor>u</prueba_distractor>
-                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
                         <prueba_distractor>o</prueba_distractor>
                         <prueba_distractor>a</prueba_distractor>
                         <prueba_distractor>a</prueba_distractor>
                         <prueba_distractor>e</prueba_distractor>
-                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
                     </prueba_distractores>
                     <prueba_tipo>3</prueba_tipo>
-                    <prueba_posicion_x>1</prueba_posicion_x>
-                    <prueba_posicion_y>10</prueba_posicion_y>
+                    <prueba_posicion_x>9</prueba_posicion_x>
+                    <prueba_posicion_y>13</prueba_posicion_y>
                 </prueba>
             </pruebas>
         </minigame>
@@ -429,6 +429,126 @@
                     <prueba_tipo>3</prueba_tipo>
                     <prueba_posicion_x>0</prueba_posicion_x>
                     <prueba_posicion_y>7</prueba_posicion_y>
+                </prueba>
+            </pruebas>
+        </minigame>
+        <minigame>
+            <minigame_id>6</minigame_id>
+            <minigame_type>1</minigame_type>
+            <minigame_map>6.tmx</minigame_map>
+            <minigame_level>1</minigame_level>
+            <pruebas>
+                <prueba>
+                    <prueba_id>1</prueba_id>
+                    <prueba_correcto>a</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>1</prueba_tipo>
+                    <prueba_posicion_x>3</prueba_posicion_x>
+                    <prueba_posicion_y>0</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>2</prueba_id>
+                    <prueba_correcto>e</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>2</prueba_tipo>
+                    <prueba_posicion_x>0</prueba_posicion_x>
+                    <prueba_posicion_y>2</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>3</prueba_id>
+                    <prueba_correcto>i</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>2</prueba_tipo>
+                    <prueba_posicion_x>3</prueba_posicion_x>
+                    <prueba_posicion_y>4</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>4</prueba_id>
+                    <prueba_correcto>o</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>1</prueba_tipo>
+                    <prueba_posicion_x>3</prueba_posicion_x>
+                    <prueba_posicion_y>6</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>5</prueba_id>
+                    <prueba_correcto>u</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>1</prueba_tipo>
+                    <prueba_posicion_x>4</prueba_posicion_x>
+                    <prueba_posicion_y>6</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>6</prueba_id>
+                    <prueba_correcto>o</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>1</prueba_tipo>
+                    <prueba_posicion_x>5</prueba_posicion_x>
+                    <prueba_posicion_y>1</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>7</prueba_id>
+                    <prueba_correcto>u</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>1</prueba_tipo>
+                    <prueba_posicion_x>7</prueba_posicion_x>
+                    <prueba_posicion_y>3</prueba_posicion_y>
+                </prueba>
+                <prueba>
+                    <prueba_id>8</prueba_id>
+                    <prueba_correcto>a</prueba_correcto>
+                    <prueba_distractores>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>u</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>o</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>a</prueba_distractor>
+                        <prueba_distractor>e</prueba_distractor>
+                        <prueba_distractor>i</prueba_distractor>
+                    </prueba_distractores>
+                    <prueba_tipo>3</prueba_tipo>
+                    <prueba_posicion_x>0</prueba_posicion_x>
+                    <prueba_posicion_y>6</prueba_posicion_y>
                 </prueba>
             </pruebas>
         </minigame>

@@ -47,8 +47,10 @@ public class ProgressBar extends Table{
      * @param stepSize the step size between values
      * @param style the {@link ProgressBarStyle} */
     public ProgressBar (float min, float max, float stepSize, boolean vertical, ProgressBarStyle style) {
-        if (min > max) throw new IllegalArgumentException("min must be > max: " + min + " > " + max);
-        if (stepSize <= 0) throw new IllegalArgumentException("stepSize must be > 0: " + stepSize);
+        if (min > max)
+            throw new IllegalArgumentException("min must be > max: " + min + " > " + max);
+        if (stepSize <= 0)
+            throw new IllegalArgumentException("stepSize must be > 0: " + stepSize);
         setStyle(style);
         this.min = min;
         this.max = max;
@@ -61,7 +63,8 @@ public class ProgressBar extends Table{
     }
 
     public void setStyle (ProgressBarStyle style) {
-        if (style == null) throw new IllegalArgumentException("style cannot be null.");
+        if (style == null)
+            throw new IllegalArgumentException("style cannot be null.");
         this.style = style;
         invalidateHierarchy();
     }
@@ -72,6 +75,7 @@ public class ProgressBar extends Table{
         return style;
     }
 
+    @Override
     public void act (float delta) {
         super.act(delta);
         animateTime -= delta;
@@ -264,9 +268,6 @@ public class ProgressBar extends Table{
         public Drawable background;
         /** ProgressBar progress. */
         public Drawable progress;
-
-        public ProgressBarStyle () {
-        }
 
         public ProgressBarStyle (Drawable background, Drawable progress) {
             this.background = background;

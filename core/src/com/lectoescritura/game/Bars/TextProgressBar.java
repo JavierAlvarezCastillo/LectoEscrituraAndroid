@@ -50,7 +50,7 @@ public class TextProgressBar extends ProgressBar{
 
     @Override
     public boolean setValue(float value){
-        if(super.setValue(value) == false)
+        if(!super.setValue(value))
             return false;
 
         refreshValue();

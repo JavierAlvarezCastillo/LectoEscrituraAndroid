@@ -30,7 +30,7 @@ public class Register extends Activity{
             @Override
             public void onClick(View v) {
                 if (nombre.getText().toString().equals(""))
-                    Toast.makeText(getApplicationContext(), "Introduce tu nombre", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Elige personaje", Toast.LENGTH_SHORT).show();
                 else {
                     Intent intent = getIntent();
                     intent.putExtra("nombre", nombre.getText().toString() );

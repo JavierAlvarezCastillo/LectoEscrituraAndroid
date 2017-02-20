@@ -18,8 +18,6 @@ import com.lectoescritura.game.Data.Prueba;
 import com.lectoescritura.game.Data.Session;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParser;

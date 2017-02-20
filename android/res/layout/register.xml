@@ -59,7 +59,7 @@
         android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="¿Eres niño o niña?"
+        android:text="Elige personaje"
         android:gravity="center_horizontal"
         android:textSize="30sp"
         android:layout_below="@+id/nombre"

@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.lectoescritura.game.Const.Const;
 import com.lectoescritura.game.Interfaces.AndroidUtils;
 
 /**
@@ -91,6 +90,8 @@ public class Levels implements Screen {
         d.getLabel().setFontScale(2.0f);
         TextButton e = new TextButton("5", skin, "button_up");
         e.getLabel().setFontScale(2.0f);
+        TextButton f = new TextButton("6", skin, "button_up");
+        f.getLabel().setFontScale(2.0f);
         TextButton volver = new TextButton("Volver", skin, "button_up");
         volver.getLabel().setFontScale(2.0f);
 
@@ -123,6 +124,13 @@ public class Levels implements Screen {
             }
         });
 
+        f.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen( new Play(utils, "6.tmx", 0, 0, "6", 0, 10, 0));
+            }
+        });
+
         e.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -145,6 +153,7 @@ public class Levels implements Screen {
         mainTable.add(d).width(d.getWidth() * 1.15f).height(d.getHeight() * 1.5f);
         mainTable.row();
         mainTable.add(e).width(e.getWidth() * 1.15f).height(e.getHeight() * 1.5f);
+        mainTable.add(f).width(e.getWidth() * 1.15f).height(f.getHeight() * 1.5f);
 
         //mainTable.padRight(20.f);
 

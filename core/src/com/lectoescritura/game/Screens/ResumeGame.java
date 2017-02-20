@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,10 +21,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.lectoescritura.game.Const.Const;
+import com.lectoescritura.game.Const.Const_core;
 import com.lectoescritura.game.Entities.Player;
 import com.lectoescritura.game.Interfaces.AndroidUtils;
 
+//TODO: Buscar solucion a pasar todos los atributos y crear un nuevo objeto al resumir el juego
 public class ResumeGame extends Game implements InputProcessor{
 
     private AndroidUtils utils;
@@ -46,8 +48,6 @@ public class ResumeGame extends Game implements InputProcessor{
     private TextureRegion currentFrame;
     private float stateTime = 0f;
 
-    private float tileWidth = 50.0f;
-
     public TiledMap tiledMap;
     TiledMapRenderer tiledMapRenderer;
 
@@ -56,11 +56,14 @@ public class ResumeGame extends Game implements InputProcessor{
 
     TiledMapTileLayer grid_layer;
 
-    float camposx, camposy;
+    float camposx;
+    float camposy;
 
     private TextureAtlas atlas;
     protected Skin skin;
-    Label puntuacion, puntuacion_valor, energia, energia_valor, estrellas, estrellas_valor;
+    Label puntuacion_valor;
+    Label energia_valor;
+    Texture energia;
     private SpriteBatch textobatch;
     private int puntos, energ, estrel;
 
@@ -89,12 +92,11 @@ public class ResumeGame extends Game implements InputProcessor{
         spriteBatch = new SpriteBatch();
         player = new Player(pos_x, pos_y);
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, Const.VIEWPORT_WIDTH, Const.VIEWPORT_HEIGHT);
+        cam.setToOrtho(false, Const_core.VIEWPORT_WIDTH, Const_core.VIEWPORT_HEIGHT);
 
         currentZoom = cam.zoom;
         Gdx.input.setCatchBackKey(true);
 
-        //
         if (camposx != 0.0f)
             cam.position.set(camposx, camposy , 0);
 
@@ -112,19 +114,16 @@ public class ResumeGame extends Game implements InputProcessor{
         atlas = new TextureAtlas("atlas.txt");
         skin = new Skin(Gdx.files.internal("skin.json"), atlas);
         textobatch = new SpriteBatch();
-        puntuacion = new Label("Puntos:", skin, "default");
         puntuacion_valor = new Label(String.valueOf(puntos), skin, "default");
-        energia = new Label("Energia:", skin, "default");
+        energia = new Texture(Gdx.files.internal("img/buttons/Bolt.png"));
         energia_valor = new Label(String.valueOf(energ), skin, "default");
-        estrellas = new Label("Estrellas:", skin, "default");
-        estrellas_valor = new Label(String.valueOf(estrel), skin, "default");
     }
 
     @Override
     public void render() {
         cam.update();
 
-        Gdx.gl.glClearColor(0, 0, 0, 0); // o 0,0,0,1;
+        Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Vector2 pos = player.getPos();
@@ -136,34 +135,19 @@ public class ResumeGame extends Game implements InputProcessor{
         spriteBatch.begin();
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = player.getKnight_ne_animation().getKeyFrame(stateTime * ANIMATION_RATE, true);
-        //Sprite sprite = (Sprite) player.getKnight_ne_animation().getKeyFrame(stateTime);
-        //spriteBatch.draw(currentFrame, pos.x, pos.y); // +80, +190/ +75, +180
         spriteBatch.draw(currentFrame, pos.x + 5, pos.y + 32, 0, 0, 100, 100, 0.45f, 0.45f, 0);
-        //textProgressBar.draw(spriteBatch, 3f);
         spriteBatch.end();
 
         textobatch.begin();
-        puntuacion.setPosition(50.0f, 1000.0f);
-        puntuacion.setFontScale(5);
-        puntuacion.draw(textobatch, 1);
-        puntuacion_valor.setPosition(390.0f, 1000.0f);
+        puntuacion_valor.setPosition(1600.0f, 1000.0f);
         puntuacion_valor.setFontScale(5);
         puntuacion_valor.setText(String.valueOf(puntos));
         puntuacion_valor.draw(textobatch, 1);
-        energia.setPosition(50.0f, 900.0f);
-        energia.setFontScale(5);
-        energia.draw(textobatch, 3.f);
-        energia_valor.setPosition(390.0f, 900.0f);
+        textobatch.draw(energia, 50.0f, 960.0f, 80.0f, 80.0f);
+        energia_valor.setPosition(140.0f, 1000.0f);
         energia_valor.setFontScale(5);
         energia_valor.setText(String.valueOf(energ));
         energia_valor.draw(textobatch, 3.f);
-//        estrellas.setPosition(50.0f, 800.0f);
-//        estrellas.setFontScale(5);
-//        estrellas.draw(textobatch, 3.f);
-//        estrellas_valor.setPosition(390.0f, 800.0f);
-//        estrellas_valor.setFontScale(5);
-//        estrellas_valor.setText(String.valueOf(estrel));
-//        estrellas_valor.draw(textobatch, 3.f);
         textobatch.end();
 
     }
@@ -171,11 +155,6 @@ public class ResumeGame extends Game implements InputProcessor{
 
     @Override
     public void resize(int width, int height) {
-        //the cam will show 10 tiles
-        /*float camWidth = tileWidth * 10.0f;
-
-        cam.position.set(camWidth / 2.0f, 0, 0);
-        cam.update();*/
     }
 
     @Override
@@ -262,11 +241,9 @@ public class ResumeGame extends Game implements InputProcessor{
 
         @Override
         public boolean pan(float x, float y, float deltaX, float deltaY) {
-            // clamp para limitar la camara¿
             x = -deltaX * currentZoom * PAN_RATE;
             y = deltaY * currentZoom * PAN_RATE;
 
-            // TODO: Hay que cambiarlo para que funcione en todos los mapas
             if (cam.position.x + x > 120 && cam.position.y + y < 120 && cam.position.y + y > -90 && cam.position.x + x < 490) {
                 cam.translate(x, y);
                 cam.update();
@@ -283,7 +260,6 @@ public class ResumeGame extends Game implements InputProcessor{
 
         @Override
         public boolean zoom(float initialDistance, float distance) {
-            // TODO: Comprobar si funciona en todos los mapas
             if (((initialDistance / distance) * currentZoom) < 1.6 && ((initialDistance / distance) * currentZoom) > 0.85) {
                 cam.zoom = (initialDistance / distance) * currentZoom;
                 cam.update();
@@ -322,7 +298,6 @@ public class ResumeGame extends Game implements InputProcessor{
                 utils.toast("¡No puedes pasar!");
             else if (energ == 0) {
                 utils.pruebaAleatoria(minigame_id, map, ultimax, ultimay, cam.position.x, cam.position.y, ultimax, ultimay, puntos, energ, estrel);
-                // TODO: poner prueba
             }
             else {
                 energ --;

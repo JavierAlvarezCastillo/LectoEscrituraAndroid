@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,7 +21,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.lectoescritura.game.Const.Const;
+import com.lectoescritura.game.Const.Const_core;
 import com.lectoescritura.game.Entities.Player;
 import com.lectoescritura.game.Interfaces.AndroidUtils;
 
@@ -39,14 +40,12 @@ public class Play implements Screen, InputProcessor{
     private SpriteBatch spriteBatch;
     private Player player;
 
-    public static final float PAN_RATE = (float) 0.25; // speed to move the camera
+    public static final float PAN_RATE = (float) 0.25;
     public static final float ANIMATION_RATE = (float) 0.1;
-    public static final int TILE_WIDTH = 50; //50 128
-    public static final int TILE_HEIGHT = 25; //31  25// 64
+    public static final int TILE_WIDTH = 50;
+    public static final int TILE_HEIGHT = 25;
     private TextureRegion currentFrame;
     private float stateTime = 0f;
-
-    private float tileWidth = 50.0f;
 
     public TiledMap tiledMap;
     TiledMapRenderer tiledMapRenderer;
@@ -58,7 +57,8 @@ public class Play implements Screen, InputProcessor{
 
     private TextureAtlas atlas;
     protected Skin skin;
-    Label puntuacion, puntuacion_valor, energia, energia_valor, estrellas, estrellas_valor;
+    Label puntuacion, puntuacion_valor, energia_valor, estrellas, estrellas_valor;
+    Texture energia;
     private SpriteBatch textobatch;
     private int puntos, energ, estrel;
 
@@ -85,7 +85,7 @@ public class Play implements Screen, InputProcessor{
         spriteBatch = new SpriteBatch();
         player = new Player(pos_x, pos_y);
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, Const.VIEWPORT_WIDTH, Const.VIEWPORT_HEIGHT);
+        cam.setToOrtho(false, Const_core.VIEWPORT_WIDTH, Const_core.VIEWPORT_HEIGHT);
 
         currentZoom = cam.zoom;
         Gdx.input.setCatchBackKey(true);
@@ -105,12 +105,9 @@ public class Play implements Screen, InputProcessor{
         atlas = new TextureAtlas("atlas.txt");
         skin = new Skin(Gdx.files.internal("skin.json"), atlas);
         textobatch = new SpriteBatch();
-        puntuacion = new Label("Puntos:", skin, "default");
         puntuacion_valor = new Label(String.valueOf(puntos), skin, "default");
-        energia = new Label("Energia:", skin, "default");
+        energia = new Texture(Gdx.files.internal("img/buttons/Bolt.png"));
         energia_valor = new Label(String.valueOf(energ), skin, "default");
-        estrellas = new Label("Estrellas:", skin, "default");
-        estrellas_valor = new Label(String.valueOf(estrel), skin, "default");
 
     }
 
@@ -118,7 +115,7 @@ public class Play implements Screen, InputProcessor{
     public void render(float delta) {
         cam.update();
 
-        Gdx.gl.glClearColor(0, 0, 0, 0); // o 0,0,0,1;
+        Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Vector2 pos = player.getPos();
@@ -134,38 +131,21 @@ public class Play implements Screen, InputProcessor{
         spriteBatch.end();
 
         textobatch.begin();
-        puntuacion.setPosition(50.0f, 1000.0f);
-        puntuacion.setFontScale(5);
-        puntuacion.draw(textobatch, 1);
-        puntuacion_valor.setPosition(390.0f, 1000.0f);
+        puntuacion_valor.setPosition(1560.0f, 1000.0f);
         puntuacion_valor.setFontScale(5);
         puntuacion_valor.setText(String.valueOf(puntos));
         puntuacion_valor.draw(textobatch, 1);
-        energia.setPosition(50.0f, 900.0f);
-        energia.setFontScale(5);
-        energia.draw(textobatch, 3.f);
-        energia_valor.setPosition(390.0f, 900.0f);
+        textobatch.draw(energia, 50.0f, 960.0f, 80.0f, 80.0f);
+        energia_valor.setPosition(140.0f, 1000.0f);
         energia_valor.setFontScale(5);
         energia_valor.setText(String.valueOf(energ));
         energia_valor.draw(textobatch, 3.f);
-//        estrellas.setPosition(50.0f, 800.0f);
-//        estrellas.setFontScale(5);
-//        estrellas.draw(textobatch, 3.f);
-//        estrellas_valor.setPosition(390.0f, 800.0f);
-//        estrellas_valor.setFontScale(5);
-//        estrellas_valor.setText(String.valueOf(estrel));
-//        estrellas_valor.draw(textobatch, 3.f);
         textobatch.end();
 
     }
 
     @Override
     public void resize(int width, int height) {
-        //the cam will show 10 tiles
-        /*float camWidth = tileWidth * 10.0f;
-
-        cam.position.set(camWidth / 2.0f, 0, 0);
-        cam.update();*/
     }
 
     @Override
@@ -257,11 +237,9 @@ public class Play implements Screen, InputProcessor{
 
         @Override
         public boolean pan(float x, float y, float deltaX, float deltaY) {
-            // clamp para limitar la camara¿
             x = -deltaX * currentZoom * PAN_RATE;
             y = deltaY * currentZoom * PAN_RATE;
 
-            // TODO: Hay que cambiarlo para que funcione en todos los mapas
             if (cam.position.x + x > 120 && cam.position.y + y < 120 && cam.position.y + y > -90 && cam.position.x + x < 490) {
                 cam.translate(x, y);
                 cam.update();
@@ -278,7 +256,6 @@ public class Play implements Screen, InputProcessor{
 
         @Override
         public boolean zoom(float initialDistance, float distance) {
-            // TODO: Comprobar si funciona en todos los mapas
             if (((initialDistance / distance) * currentZoom) < 1.6 && ((initialDistance / distance) * currentZoom) > 0.85) {
                 cam.zoom = (initialDistance / distance) * currentZoom;
                 cam.update();

@@ -2,18 +2,16 @@ package com.lectoescritura.game.Entities;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
     private Vector2 pos;
     private float velocity;
-    private int pos_x, pos_y;
+    private int pos_x;
+    private int pos_y;
 
     // NE
     private Texture knight_ne;
@@ -25,7 +23,7 @@ public class Player {
     public Player(int pos_x, int pos_y) {
 
         // NE animation
-
+        // TODO: Hay que controlar hacia donde mira el personaje para mostrar la animacion correspondiente
         knight_ne = new  Texture(Gdx.files.internal("img/character/knight_se.png"));
         knight_ne.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest); // pick test
         TextureRegion[][] tmp = TextureRegion.split(knight_ne, knight_ne.getWidth() /

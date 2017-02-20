@@ -268,7 +268,7 @@ public class AndroidLauncher extends AndroidApplication implements AndroidUtils 
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("No tienes energía. ¿Quieres conseguir más?").setPositiveButton("Sí", dialogClickListener)
+                builder.setMessage("Si quieres conseguir más resuelve este reto").setPositiveButton("Sí", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
             }
         });
@@ -371,6 +371,33 @@ public class AndroidLauncher extends AndroidApplication implements AndroidUtils 
 
     }
 
+    void update_all_end_level() {
+        xmlParser.getPlayer().setEnergia(energia);
+        int total_estrellas = Integer.parseInt(xmlParser.getPlayer().getEstrellas());
+        total_estrellas += estrellas;
+
+        xmlParser.getPlayer().setEstrellas(String.valueOf(total_estrellas));
+
+        int total_puntos = Integer.parseInt(xmlParser.getPlayer().getPuntuacion());
+        total_puntos += puntos;
+        xmlParser.getPlayer().setPuntuacion(String.valueOf(total_puntos));
+
+        xmlParser.update_player();
+
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setPos_x(pos_x);
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setPos_y(pos_y);
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setStars(String.valueOf(estrellas));
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setMax_score(String.valueOf(puntos));
+        xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setEstado("2");
+        xmlParser.update_games();
+
+        session.setIntentos(intentos);
+        session.setMingameId(minigame_id);
+        xmlParser.setSession(session);
+        xmlParser.print_session();
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
@@ -430,8 +457,7 @@ public class AndroidLauncher extends AndroidApplication implements AndroidUtils 
                     intentos = new ArrayList<>();
                     boolean encontrado = false;
                     prueba_final = 0;
-                    xmlParser.getGames().get(Integer.parseInt(minigame_id)-1).setEstado("2");
-                    update_all();
+                    update_all_end_level();
 
                     for (String mingam_id: xmlParser.getPlayer().getGameIDs()) {
                         for (Game game: xmlParser.getGames()) {
@@ -442,7 +468,7 @@ public class AndroidLauncher extends AndroidApplication implements AndroidUtils 
                                     pos_y = game.getPos_y();
                                     puntos = Integer.parseInt(game.getMax_score());
                                     estrellas = Integer.parseInt(game.getStars());
-                                    energia = xmlParser.getPlayer().getEnergia();
+                                    energia = xmlParser.getPlayer().getEnergia() + 10;
                                     encontrado = true;
                                 }
                             }

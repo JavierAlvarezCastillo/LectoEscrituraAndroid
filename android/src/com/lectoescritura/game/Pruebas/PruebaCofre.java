@@ -41,8 +41,8 @@ public class PruebaCofre extends Activity {
         setContentView(R.layout.prueba_cofre);
 
         final TextView correctoButton = (TextView) findViewById(R.id.correcto);
-        correcto = "   " + correcto;
-        correctoButton.setText(correcto);
+        String muestra = "   " + correcto;
+        correctoButton.setText(muestra);
 
         final NumberPicker picker = (NumberPicker) findViewById(R.id.numberPicker);
         picker.setMinValue(0);
